@@ -5,7 +5,7 @@ var buttons = [
     'answer-2',
     'answer-3'
 ];
-var ws = new WebSocket(window.location.href.replace(/^http[s]?/, 'ws'));
+var ws = new WebSocket(window.location.href.replace(/^http/, 'ws'));
 
 ws.onmessage = handleWebSocketMessage;
 
@@ -18,6 +18,8 @@ buttons.forEach(function(button, index) {
         };
 
         ws.send(JSON.stringify(answerMessage));
+
+        document.getElementById(button).style.border = '3px solid black';
 
         disableAnswers();
     });
@@ -36,9 +38,16 @@ function handleWebSocketMessage(event) {
         return;
     }
 
+    if (message.type === 'name') {
+        document.getElementById('contestant-name').innerText += ' ' + message.name;
+        return;
+    }
+
     if (message.type === 'question') {
         currentQuestion = message.question.number;
-
+        document.getElementById('scoreboard-container').removeAttribute('style');
+        document.getElementById('waiting').style.display = 'none';
+        document.getElementById('question').style.display = 'block';
         document.getElementById('question__text').innerText = 'Question ' + message.question.number + ': ' + message.question.text;
 
         message.question.answers.forEach(function(item, index) {
@@ -54,6 +63,7 @@ function handleWebSocketMessage(event) {
 
     if (message.type === 'answer' && message.question === currentQuestion) {
         document.getElementById('answer-' + message.answer).style.backgroundColor = 'limegreen';
+        document.getElementById('answer-' + message.answer).style.color = 'black';
         return;
     }
 
@@ -75,10 +85,13 @@ function enableAnswers() {
     })
 }
 
-function renderScoreboard(scoreboard) {
-    const tbody = document.getElementById('scoreboard').tBodies[0];
+function renderScoreboard(scoreboardData) {
+    var tbody = document.getElementById('scoreboard').tBodies[0];
 
-    scoreboard.forEach((item) => {
+    tbody.innerHTML = '';
+
+    scoreboardData.forEach((item) => {
         tbody.innerHTML += '<tr><td>'+ item.name + '</td><td>' + item.score + '</td></tr>';
     })
+    document.getElementById('scoreboard-container').style.display = 'block';
 }

@@ -2,7 +2,7 @@ var ws;
 var currentQuestion = 0;
 
 document.getElementById('quizmaster-auth__submit').addEventListener('click', function(event) {
-    ws = new WebSocket(window.location.href.replace(/^http[s]?/, 'ws'));
+    ws = new WebSocket(window.location.href.replace(/^http/, 'ws'));
     ws.onmessage = handleWebSocketMessage;
 });
 
@@ -33,6 +33,7 @@ function handleWebSocketMessage(event) {
 
     if (message.type === 'message' && message.message === 'auth-confirmed') {
         document.getElementById('quizmaster-auth').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
         return;
     }
 
@@ -42,7 +43,9 @@ function handleWebSocketMessage(event) {
     }
 
     if (message.type === 'question') {
+        document.getElementById('scoreboard-container').removeAttribute('style');
         document.getElementById('quiz__next-question').disabled = true;
+        document.getElementById('question').style.display = 'block';
 
         document.getElementById('question__text').innerText = 'Question ' + message.question.number + ': ' + message.question.text;
 
@@ -58,6 +61,7 @@ function handleWebSocketMessage(event) {
 
     if (message.type === 'answer' && message.question === currentQuestion) {
         document.getElementById('answer-' + message.answer).style.backgroundColor = 'limegreen';
+        document.getElementById('answer-' + message.answer).style.color = 'black';
         if (message.nextQuestion) {
             document.getElementById('quiz__next-question').disabled = false;
         }
@@ -70,10 +74,13 @@ function handleWebSocketMessage(event) {
     }
 }
 
-function renderScoreboard(scoreboard) {
-    const tbody = document.getElementById('scoreboard').tBodies[0];
+function renderScoreboard(scoreboardData) {
+    var tbody = document.getElementById('scoreboard').tBodies[0];
 
-    scoreboard.forEach((item) => {
+    tbody.innerHTML = '';
+
+    scoreboardData.forEach((item) => {
         tbody.innerHTML += '<tr><td>'+ item.name + '</td><td>' + item.score + '</td></tr>';
     })
+    document.getElementById('scoreboard-container').style.display = 'block';
 }

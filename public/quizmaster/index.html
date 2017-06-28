@@ -2,33 +2,39 @@
 <html>
 <head>
     <title>Tarrant Quizmaster UI</title>
+    <link rel="stylesheet" href="quizmaster.css" />
 </head>
 <body>
-    <div id="quizmaster-auth">
-        <input id="quizmaster-auth__key" type="password">
-        <button id="quizmaster-auth__submit">Submit</button>
-    </div>
-    <div id="quiz">
-        <h1 id="quiz-title"></h1>
-        <button id="quiz__next-question">Next Question</button>
-        <div id="question">
-            <h2 id="question__text"></h2>
-            <div id="question__answers">
-                <button id="answer-0" disabled></button>
-                <button id="answer-1" disabled></button>
-                <button id="answer-2" disabled></button>
-                <button id="answer-3" disabled></button>
+    <div id="wrapper">
+        <div id="quizmaster-auth">
+            <label>Quizmaster Auth Key: <input id="quizmaster-auth__key" type="password"></label>
+            <button id="quizmaster-auth__submit">Submit</button>
+        </div>
+        <div id="quiz">
+            <h1 id="quiz-title"></h1>
+            <button id="quiz__next-question">Next Question</button>
+            <div id="question">
+                <h2 id="question__text"></h2>
+                <div id="question__answers">
+                    <button id="answer-0" disabled></button>
+                    <button id="answer-1" disabled></button>
+                    <button id="answer-2" disabled></button>
+                    <button id="answer-3" disabled></button>
+                </div>
             </div>
         </div>
+        <div id="scoreboard-container">
+            <h2>Scoreboard</h2>
+            <table id="scoreboard">
+                <thead>
+                    <th>Contestant</th>
+                    <th>Score</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <table id="scoreboard">
-        <thead>
-            <th>Contestant</th>
-            <th>Score</th>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
     <script type="text/javascript" src="quizmaster.js"></script>
 </body>
 </html>
