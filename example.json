@@ -1,0 +1,29 @@
+{
+    "title": "The Quiz Of Exampleness!",
+    "questions": [
+        {
+            "text": "What is 1 + 1?",
+            "answers": [
+                "0",
+                "5",
+                {
+                    "text": "2",
+                    "correct": true
+                },
+                "What even are numbers?"
+            ]
+        },
+        {
+            "text": "What colour is the sky?",
+            "answers": [
+                {
+                    "text": "Blue",
+                    "correct": true
+                },
+                "It's spelled color",
+                "Green",
+                "Red"
+            ]
+        }
+    ]
+}

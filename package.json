@@ -1,0 +1,27 @@
+{
+  "name": "tarrant",
+  "version": "1.0.0",
+  "description": "Multiple choice quiz engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeedsJs/tarrant.git"
+  },
+  "author": "Luke Bonaccorsi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeedsJs/tarrant/issues"
+  },
+  "homepage": "https://github.com/LeedsJs/tarrant#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "crypto-random-string": "^1.0.0",
+    "express": "^4.15.3",
+    "moniker": "^0.1.2",
+    "ws": "^3.0.0",
+    "yargs": "^8.0.2"
+  }
+}
